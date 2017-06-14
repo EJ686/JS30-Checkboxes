@@ -1,7 +1,24 @@
 const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
 
+let lastChecked;
+
 function handleCheck(e) {
-    console.log(e);
-};
+    // Check if they had the shift key down
+    // AND check that they are checking it and not unchecking it
+    let inBetween = false;
+    if (e.shiftKey && this.checked) {
+        // loop for every single checkbox
+        checkboxes.forEach(checkbox => {
+            console.log(checkbox);
+            if (checkbox === this || checkbox === lastChecked) {
+                inBetween = !inBetween;
+            }
+            if (inBetween) {
+                checkbox.checked = true;
+            }
+        });
+    }
+    lastChecked = this;
+}
 
 checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
